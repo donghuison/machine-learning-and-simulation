@@ -1,0 +1,2 @@
+FC = mpiifort
+FFLAGS = -axCORE-AVX2 -shared-intel -mcmodel=large

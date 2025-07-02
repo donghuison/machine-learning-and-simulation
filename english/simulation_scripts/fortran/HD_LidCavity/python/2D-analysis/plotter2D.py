@@ -11,7 +11,7 @@ def main():
     
     # Create dictionary of base directories for each scheme
     base_dirs = {
-        'LID_Cavity': '/mnt/work10/son/MHD_CODE/PROBLEM/HD_LidCavity/PARALLEL/'
+        'LID_Cavity': '/Users/donghuison/workspace/myGit/KHU-STUDY/Project-01/machine-learning-and-simulation/english/simulation_scripts/fortran/HD_LidCavity/'
     }
     
     # Select current scheme (예: WENO5-Z+M 사용)

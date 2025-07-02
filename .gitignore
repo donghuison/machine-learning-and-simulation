@@ -1,1 +1,9 @@
 *.vscode/
+CLAUDE.md
+
+# Ignore all fig_* directories under 2D-analysis
+english/simulation_scripts/fortran/HD_LidCavity/python/2D-analysis/fig_*
+english/simulation_scripts/fortran/HD_LidCavity/python/*
+english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/data_*
+english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/*.mod
+english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/*.o

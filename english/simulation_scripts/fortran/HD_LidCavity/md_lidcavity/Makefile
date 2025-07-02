@@ -26,7 +26,7 @@ $(COMMON_LIB):
 init.o: $(COMMON_LIB) const.o model.o bnd.o
 model.o: $(COMMON_LIB) const.o
 bnd.o: $(COMMON_LIB)
-integrate.o: $(COMMON_LIB) bnd.o
+integrate.o: $(COMMON_LIB) bnd.o rhs.o
 main.o: $(COMMON_LIB) init.o const.o openfile.o integrate.o
 openfile.o: $(COMMON_LIB) const.o
 rhs.o: $(COMMON_LIB)

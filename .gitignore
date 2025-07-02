@@ -1,5 +1,6 @@
 *.vscode/
 CLAUDE.md
+english/simulation_scripts/.claude
 
 # Ignore all fig_* directories under 2D-analysis
 english/simulation_scripts/fortran/HD_LidCavity/python/2D-analysis/fig_*

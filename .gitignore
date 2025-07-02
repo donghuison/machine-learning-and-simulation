@@ -1,10 +1,36 @@
+# IDE and Editor files
 *.vscode/
-CLAUDE.md
-english/simulation_scripts/.claude
+.idea/
+*.swp
+*.swo
+*~
 
-# Ignore all fig_* directories under 2D-analysis
-english/simulation_scripts/fortran/HD_LidCavity/python/2D-analysis/fig_*
+# Project specific files
+CLAUDE.md
+english/simulation_scripts/.claude/
+
+# Fortran compilation artifacts (global)
+*.o
+*.mod
+*.a
+*.out
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data and output directories
+english/simulation_scripts/fortran/HD_LidCavity/python/2D-analysis/fig_*/
 english/simulation_scripts/fortran/HD_LidCavity/python/*
-english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/data_*
-english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/*.mod
-english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/*.o
+english/simulation_scripts/fortran/HD_LidCavity/md_lidcavity/data_*/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

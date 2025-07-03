@@ -2,16 +2,11 @@ module const
 
    implicit none
 
-   ! character(*),parameter :: input_dir = "data_41x41/"
-   ! character(*),parameter :: output_dir = "data_41x41/"
+
    character(*),parameter :: input_dir = "data_40x40/"
    character(*),parameter :: output_dir = "data_40x40/"
    ! character(*),parameter :: input_dir = "data_40x40_serial/"
    ! character(*),parameter :: output_dir = "data_40x40_serial/"
-   ! character(*),parameter :: input_dir = "data_300x300/"
-   ! character(*),parameter :: output_dir = "data_300x300/"
-   ! character(*),parameter :: input_dir = "data_400x400/"
-   ! character(*),parameter :: output_dir = "data_400x400/"
 
    real(8),parameter :: pi= acos(-1.0d0)
    real(8),parameter :: pi2=2.0d0*pi
@@ -58,7 +53,7 @@ module const
    real(8),parameter :: vx0 = 0.0d0, vy0 = 0.0d0
    real(8),parameter :: dt0 = 0.1d0 ! Stable fluids uses larger timestep
    real(8),parameter :: KINEMATIC_VISCOSITY = 0.0001d0  ! Lower viscosity for stable fluids
-   integer,parameter :: MAX_ITER_CG = 80000  ! Max iterations for conjugate gradient
+   integer,parameter :: MAX_ITER_CG = 5000  ! Max iterations for conjugate gradient
 
    ! Forcing parameters
    real(8),parameter :: force_x_min = 0.4d0, force_x_max = 0.6d0

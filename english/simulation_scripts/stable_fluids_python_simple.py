@@ -328,6 +328,9 @@ def main():
     plt.style.use("dark_background")
     plt.figure(figsize=(5, 5), dpi=160)
 
+    # Storage for animation frames
+    frames = []
+    
     velocities_prev = np.zeros(vector_shape)
     
     time_current = 0.0
@@ -402,9 +405,44 @@ def main():
         )
         plt.draw()
         plt.pause(0.0001)
+        
+        # Capture frame for GIF
+        plt.gcf().canvas.draw()
+        try:
+            image = np.frombuffer(plt.gcf().canvas.tostring_rgb(), dtype='uint8')
+        except AttributeError:
+            # Fallback for Mac/different matplotlib versions
+            image = np.frombuffer(plt.gcf().canvas.buffer_rgba(), dtype='uint8')
+        image = image.reshape(plt.gcf().canvas.get_width_height()[::-1] + (-1,))
+        if image.shape[2] == 4:  # RGBA
+            image = image[:, :, :3]  # Convert to RGB
+        frames.append(image)
+        
         plt.clf()
 
     plt.show()
+    
+    # Save as GIF
+    print("\nSaving animation as GIF...")
+    import matplotlib.animation as animation
+    from matplotlib.animation import PillowWriter
+    
+    fig_anim = plt.figure(figsize=(5, 5), dpi=160)
+    ax_anim = fig_anim.add_subplot(111)
+    ax_anim.axis('off')
+    
+    im = ax_anim.imshow(frames[0])
+    
+    def animate(i):
+        im.set_array(frames[i])
+        return [im]
+    
+    anim = animation.FuncAnimation(fig_anim, animate, frames=len(frames), 
+                                 interval=100, blit=True)
+    
+    writer = PillowWriter(fps=10)
+    anim.save('stable_fluids_simulation.gif', writer=writer)
+    print("Saved as stable_fluids_simulation.gif")
         
 
 

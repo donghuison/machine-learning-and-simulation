@@ -8,7 +8,7 @@ contains
 
    subroutine advect_velocity(nvar, margin, ix, jx, x, y, dx, dy, dt, Vc, Vci, xmin, xmax, ymin, ymax, g_gamma)
       use bnd
-      ! use mpi_setup, only : mpid, mnull
+      use mpi_setup, only : mpid, mnull
 
       implicit none
 
@@ -44,14 +44,43 @@ contains
       end do
 
       ! Semi-Lagrangian advection for all interior points
-      do j=2, jx-1
-         do i=2, ix-1
+      do j=1, jx
+         do i=1, ix
             ! Skip boundary points where velocity should remain zero
             ! if (i == 1 .or. i == ix .or. j == 1 .or. j == jx) then
             !    u_new(i,j) = 0.0d0
             !    v_new(i,j) = 0.0d0
             !    cycle
             ! end if
+
+            if(mpid%l == mnull) then
+               if(i == 1) then
+                  u_new(i,j) = 0.0d0
+                  v_new(i,j) = 0.0d0
+               end if
+            end if
+
+            if(mpid%r == mnull) then
+               if(i == ix) then
+                  u_new(i,j) = 0.0d0
+                  v_new(i,j) = 0.0d0
+               end if
+            end if
+
+            if(mpid%b == mnull)then
+               if(j == 1) then
+                  u_new(i,j) = 0.0d0
+                  v_new(i,j) = 0.0d0
+               end if
+            end if
+
+            if(mpid%f == mnull) then
+               if(j == jx) then
+                  u_new(i,j) = 0.0d0
+                  v_new(i,j) = 0.0d0
+               end if
+            end if
+
 
             ! Backtrace position
             x_depart = x(i) - dt*Vc(i,j,3)
@@ -72,8 +101,8 @@ contains
 
       ! Update velocities
 
-      do j=2, jx-1
-         do i=2, ix-1
+      do j=1, jx
+         do i=1, ix
             Vc(i,j,3) = u_new(i,j)
             Vc(i,j,4) = v_new(i,j)
          end do

@@ -60,7 +60,7 @@ contains
       real(8) :: alpha, beta, error, error_global
       real(8), dimension(ix,jx) :: u_old, v_old, u_new, v_new
       real(8), dimension(ix,jx) :: lap_u, lap_v
-      real(8), parameter :: tolerance = 1.0d-8
+      real(8), parameter :: tolerance = 1.0d-6
 
       ! Store current velocities as right-hand side
       u_old = Vc(:,:,3)
@@ -72,10 +72,9 @@ contains
 
       ! Solve (I - nu*dt*Laplacian)u_new = u_old using Jacobi iteration
       alpha = KINEMATIC_VISCOSITY * dt
+      error_global = 100.0d0
 
       do iter = 1, MAX_ITER_CG
-
-         ! Store previous iteration
          error = 0.0d0
 
          ! Update interior points using Jacobi iteration
@@ -101,11 +100,8 @@ contains
          end do
 
          ! Update velocities
-         ! Vc(:,:,3) = u_new
-         ! Vc(:,:,4) = v_new
-
-         do j = 2, jx-1
-            do i = 2, ix-1
+         do j=2, jx-1
+            do i=2, ix-1
                Vc(i,j,3) = u_new(i,j)
                Vc(i,j,4) = v_new(i,j)
             end do
@@ -145,7 +141,7 @@ contains
       real(8) :: rhs, coeff, error, error_global
       real(8), dimension(ix,jx) :: div, pr_old, pr_new, lap_p
       real(8), dimension(ix,jx) :: dp_dx, dp_dy
-      real(8), parameter :: tolerance = 1.0d-8
+      real(8), parameter :: tolerance = 1.0d-6
 
       error_global = 100.0d0
 
@@ -201,8 +197,6 @@ contains
       call bnd__exec_prs(margin, ix, jx, Vc(:,:,2), g_gamma, x, y)
 
       ! Compute pressure gradient
-      ! call central_difference_x(margin, ix, jx, pr_new, dp_dx, dx)
-      ! call central_difference_y(margin, ix, jx, pr_new, dp_dy, dy)
       call central_difference_x(margin, ix, jx, Vc(:,:,2), dp_dx, dx)
       call central_difference_y(margin, ix, jx, Vc(:,:,2), dp_dy, dy)
 
